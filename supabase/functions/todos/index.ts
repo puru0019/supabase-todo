@@ -3,7 +3,7 @@
 // This enables autocomplete, go to definition, etc.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,12 +12,12 @@ const corsHeaders = {
 
 interface Task {
   name: string
-  status: number
+  status: boolean
   description: string
 }
 
 async function createTask(supabaseClient: SupabaseClient, task: Task) {
-  const { error } = await supabaseClient.from('tasks').insert(task)
+  const { error } = await supabaseClient.from('todos').insert(task)
   if (error) throw error
 
   return new Response(JSON.stringify({ task }), {
